@@ -1,0 +1,181 @@
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long      ll;
+
+//FIXME: CHECK FOR EVERY STEPS .. IF IT FAILS ANYWHERE (DONE)
+
+int main() 
+{
+    ios::sync_with_stdio(false);
+    int t;
+    cin>>t;
+    while (t--)
+    {
+        ll n,X,p,k;
+        cin>>n>>X>>p>>k;
+
+        //========================SUBTASK 1->N =5
+        
+
+        // vector<ll>a(n,0);
+
+        // for(ll i=0;i<n;i++)
+        //     cin>>a[i];
+        vector<ll>a(n);
+		for(auto&x : a) cin >> x;
+
+        sort(a.begin(),a.end(),[&](int a,int b){
+            return a<b;
+        });
+
+        ll xindex=0;
+        ll xispresent=0;
+
+        ll mindif=INT_MAX;
+        //if(X present)
+        for(ll i=0;i<n;i++)
+            if(a[i]==X)
+            {
+                //IF MULTIPLE OCCURENCES THEN TAKE XINDEX WHICH IS CLOSEST TO P
+                if(abs(xindex-p)<mindif)
+                {
+                    mindif=xindex-p;
+                    xindex=i;
+                    xispresent=1;
+                }
+                
+            }
+
+        // if(k==p)
+        // {
+        //     if(xindex==a[k-1])
+        //     {
+        //         cout<<"0\n";
+        //         continue;
+        //     }
+        //     else
+        //     {
+                
+        //     }
+            
+        // }
+
+        //1ST SMALLEST REFERS TO 0TH ELEMENT ;)
+        if(xispresent)
+        {
+
+            //cout<<"TEST="<<a[k-1]<<" "<<a[p-1]<<" "<<X<<endl;
+            if(xindex==p-1)
+            {
+                cout<<"0\n";
+                continue;
+            }
+
+            //NEGATIVE CASES:
+            else if(k-1<xindex && xindex<p-1)
+            {
+                cout<<"-1\n";
+                continue;
+            }
+            else if(p-1<xindex && xindex<k-1)
+            {
+                cout<<"-1\n";
+                continue;
+            }
+
+            else if(k-1==xindex || (p-1<k-1 && k-1<xindex)||(xindex<k-1 && k-1<p-1))
+            {
+                cout<<"-1\n";
+                continue;
+            }
+            //POSITIVE CASES WITH NUM. OF STEPS
+            
+            cout<<abs(xindex+1-p)<<endl;
+            
+        }
+        //FIXME: CHECKOUT HERE.. SINCE DEFAULT IS -1...IF ANY POSITIVE CASE MISSED IN IFs
+        // THEN -1 WHICH IS WHY IT'S NOT WORKING...EVERYTIME...
+        //IT'S THE SAME FOR EVERY SUBMISSION
+        if(!xispresent)
+        {
+            
+            //cout<<"TEST="<<k<<" "<<p<<" "<<X<<endl;
+            // cout<<a[]
+
+            //WHEN JUST ONE TRANSFORMATION INTO X DIRECTLY LEADS TO X AT Ap
+            // if(X>a[p-1] && X<a[p] && p>k)
+            // {
+            //     //cout<<"MOSHI\n";
+            //     cout<<"1\n";
+            //     continue;
+            // }
+
+            // else if(a[p-2]<X && X<a[p-1]&&k>p)
+            // {
+            //     //cout<<"NEWLY ADDED\n";
+            //     cout<<"1\n";
+            //     continue;
+            // }
+
+            // else if(k==p)
+            // {
+                
+            //     //cout<<"MOOHI";
+            //     //EQUALTIY CASE OF 1ST 2 CASES K==P
+            //     //============================IF K-1th<X<K+1th
+            //     if(a[k]>X && a[k-2]<X)
+            //     {
+            //         //=============================FIXED:
+            //         //cout<<"NEW\n";
+            //         cout<<"1\n";
+            //         continue;
+            //     }
+            // }
+            
+               
+                a[k-1]=X;
+                sort(a.begin(),a.end());
+                        
+                    //x index
+                ll Xindex=0;
+                for(ll i=0;i<n;i++)
+                    if(a[i]==X)
+                        Xindex=i;
+                    
+                if(Xindex==p-1)
+                {
+                    cout<<"1\n";
+                    continue;
+                }
+
+                    //NEGATIVE CASES:
+                    else if(k-1<Xindex && Xindex<p-1)
+                    {
+                        cout<<"-1\n";
+                        continue;
+                    }
+                    else if(p-1<Xindex && Xindex<k-1)
+                    {
+                        cout<<"-1\n";
+                        continue;
+                    }
+
+                    else if(k-1==Xindex || (p-1<k-1 && k-1<Xindex)||(Xindex<k-1 && k-1<p-1))
+                    {
+                        cout<<"-1\n";
+                        continue;
+                    }
+                    //POSITIVE CASES WITH NUM. OF STEPS
+                    
+                    cout<<abs(Xindex+1-p)+1<<endl;
+                    
+                
+                cout<<"-1\n";
+                continue;
+            
+            
+        }
+    }
+    return 0;        
+}
+    
